@@ -1,7 +1,4 @@
-size [] = 0
-size (x: xs) = 1 + size xs 
-
-final n xs = drop ((size xs) - n) xs
+final n xs = drop ((length xs) - n) xs
 
 main = do
     inputdata <- getContents
