@@ -92,11 +92,11 @@ unique all@(x:xs)
     | unico x all = x:unique xs
     | otherwise = unique xs
 
--- Questao 16 NOT-WORKING
-menores :: (Ord a) => Int -> [a] -> [a]
-menores n all@(x:xs)
-    | elem x $ sort all = x:menores (n-1) xs
-    | otherwise = menores (n-1) xs
+-- Questao 16
+menores :: Int -> [Int] -> [Int]
+menores 0 _ = []
+menores n u = [x | x <- u, x <= el]
+    where el = if n < length u then sort u !! (n-1) else maxBound :: Int
 
 -- Questao 17
 alter :: Int -> [Int]
@@ -129,7 +129,6 @@ uniao :: (Eq a) => [a] -> [a] -> [a]
 uniao u [] = u
 uniao [] x = x
 uniao u x = u ++ uniao' u x
-    
 
 -- Questao 22
 intersec :: (Eq a) => [a] -> [a] -> [a]
@@ -172,42 +171,31 @@ upper :: String -> String
 upper s = [toUpper x | x <- s]
 
 -- Questao 30
--- titulo :: String -> String
--- titulo s = [toTitle x | x <- words s]
+titulo :: String -> String
+titulo s = unwords $ [toUpper (head x):[toLower y | y <- tail x] | x <- words s]
 
 -- Questao 31
 selec :: [a] -> [Int] -> [a]
 selec _ [] = []
 selec u (x:xs) = (u !! x):selec u xs
 
--- Questao 32 NOT-WORKING
-bkpPalind :: String -> Int -> Int -> Bool
-bkpPalind s begin end
-    | begin <= end = s !! begin == s !! end && bkpPalind s (begin+1) (end-1)
-
+-- Questao 32
 isPalind :: String -> Bool
-isPalind s = bkpPalind s 0 (length s -1)
+isPalind [] = False
+isPalind [x] = True
+isPalind s
+    | head s == last s = True && isPalind (init $ tail s)
+    | otherwise = False
 
 -- Questao 33
 primo :: Int -> Bool
 primo n = length [x | x <- [1..n], mod n x == 0] == 2
 
--- Questao 34 NOT-WORKING
-tes :: Int -> Int -> Int
-tes n d = if k == 0 then k + (tes (n `div` d) d) else 0
-    where k = n `mod` d
-
+-- Questao 34
 sdig :: Int -> Int
-sdig n = tes n 10
-
---  Questao 36 NOT-WORKING
--- compac :: [Int] -> [[Int]]
--- compac (x:xs) =
+sdig 0 = 0
+sdig n = mod n 10 + sdig (div n 10)
 
 -- Questao 37
 splitints :: [Int] -> ([Int], [Int])
-splitints u = ([x | x <- u, mod x 2 /= 0], [x | x <- u, mod x 2 == 0])
-
--- Questao 38
--- perfeito :: Int -> Bool
--- perfeito n = 
+splitints u = ([x | x <- u, odd x], [x | x <- u, even x])
