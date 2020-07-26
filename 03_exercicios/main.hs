@@ -1,4 +1,5 @@
 import Data.List
+import Data.Char
 
 -- Q1
 menorDeDois :: (Ord a) => a -> a -> a
@@ -152,10 +153,50 @@ qsort (x:xs)  = qsort [y | y <- xs, y < x] ++ [x] ++ qsort [z | z <- xs, z >= x]
 
 -- Q27
 rotEsq :: Int -> [a] -> [a]
-rotEsq n u = drop per u ++ take per u
-    where per = mod n 5
+rotEsq n u = drop limit u ++ take limit u
+    where limit = mod n (length u)
 
 -- Q28
 rotDir :: Int -> [a] -> [a]
-rotDir n u = take per u ++ drop per u
-    where per = mod n 5
+rotDir n u = drop resto u ++ take resto u
+    where
+        limit = mod n (length u)
+        resto = length u - limit
+
+-- Q29
+upper :: String -> String
+upper s = [toUpper x | x <- s]
+
+-- Q30
+titulo :: String -> String
+titulo s = unwords $ [(toUpper $ head p):[toLower l | l <- tail p] | p <- words s]
+
+-- Q31
+selec :: (Ord a) => [a] -> [Int] -> [a]
+selec _ []     = []
+selec u (x:xs) = (u !! x) : selec u xs
+
+-- Q32
+isPalind :: String -> Bool
+isPalind []            = True
+isPalind [x]           = True
+isPalind s
+    | head s == last s = isPalind $ init $ tail s
+    | otherwise        = False
+
+-- Q33
+primo :: Int -> Bool
+primo 0 = True
+primo 1 = False
+primo 2 = True
+primo n = length [x | x <- [2..(n-1)], mod n x == 0] == 0
+
+-- Q34
+sdig :: Int -> Int
+sdig 0 = 0
+sdig n = (mod n 10) + sdig (div n 10)
+
+-- Q37
+splitints :: [Int] -> ([Int], [Int])
+splitints u = (filter odd u, filter even u)
+
