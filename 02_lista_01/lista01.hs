@@ -60,7 +60,7 @@ frequencia n (x:xs)
 
 -- Questao 10
 unico :: (Eq a) => a -> [a] -> Bool
-unico n [] = False
+unico _ [] = False
 unico n u = frequencia n u == 1
 
 -- Questao 11
@@ -86,8 +86,8 @@ corpo [] = []
 corpo (x:[_]) = [x]
 corpo (x:xs) = x:corpo xs
 -- corpo (x:xs)
-    -- | (length xs) == 1 = [x]
-    -- | otherwise = [x] ++ corpo xs
+-- | (length xs) == 1 = [x]
+-- | otherwise = [x] ++ corpo xs
 -- corpo u = init u
 -- corpo u = take ((length u) - 1) u
 
@@ -200,7 +200,7 @@ selec u (x:xs) = (u !! x):selec u xs
 -- Questao 32
 isPalind :: String -> Bool
 isPalind [] = False
-isPalind [x] = True
+isPalind (_:[]) = True
 isPalind s
     | head s == last s = True && isPalind (init $ tail s)
     | otherwise = False
