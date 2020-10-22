@@ -24,6 +24,7 @@ hamming' ant = hamming' $ mescla2 ant mult
 hamming :: [Int]
 hamming = hamming' [1]
 
+--- FUNCIONAM
 collatz :: Integer -> [Integer]
 collatz 1 = [1]
 collatz n
